@@ -1,6 +1,8 @@
-# electron-test
+# electron-connect-vue-example
 
-> An electron-vue project
+Use electron-connect with electron-vue
+
+[Blog post](http://polaris-bear.lolipop.jp/shunroom/691)
 
 ## Build Setup
 
