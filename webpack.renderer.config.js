@@ -16,7 +16,11 @@ let rendererConfig = {
   entry: {
     renderer: path.join(__dirname, 'app/src/renderer/main.js')
   },
-  externals: Object.keys(pkg.dependencies || {}),
+  externals: Object.keys(pkg.dependencies || {}).concat([
+    "spawn-sync",
+    "utf-8-validate",
+    "bufferutil"
+  ]),
   module: {
     rules: [
       {
@@ -105,11 +109,6 @@ let rendererConfig = {
       path.join(__dirname, 'node_modules')
     ]
   },
-  externals: {
-    "spawn-sync": true,
-    "utf-8-validate": true,
-    "bufferutil": true
-  },
   target: 'electron-renderer'
 }
 
@@ -143,15 +142,15 @@ if (process.env.NODE_ENV === 'production') {
   rendererConfig.plugins.push(
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"'
-    }),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
     })
+    // new webpack.LoaderOptionsPlugin({
+    //   minimize: true
+    // }),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   compress: {
+    //     warnings: false
+    //   }
+    // })
   )
 }
 
